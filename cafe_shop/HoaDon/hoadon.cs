@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace cafe_shop.DoanhThu
+namespace cafe_shop.HoaDon
 {
-    public partial class doanhthu : UserControl
+    public partial class hoadon : UserControl
     {
-        public doanhthu()
+        public hoadon()
         {
             InitializeComponent();
         }

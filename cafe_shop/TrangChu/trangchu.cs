@@ -1,5 +1,4 @@
 ﻿using cafe_shop.LichTrinh;
-using cafe_shop.DoanhThu;
 using cafe_shop.NhanVien;
 using cafe_shop.KhoHang;
 using cafe_shop.Login;
@@ -13,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using cafe_shop.HoaDon;
+using cafe_shop.ThucDon;
 
 namespace cafe_shop.TrangChu
 {
@@ -151,15 +152,24 @@ namespace cafe_shop.TrangChu
             SaveOriginalBounds(lt);
         }
 
-
-        private void doanhthu_btn_MouseClick_1(object sender, MouseEventArgs e)
+        private void hoadon_btn_MouseClick(object sender, MouseEventArgs e)
         {
             panel1.Controls.Clear();
-            doanhthu dt = new doanhthu();
-            dt.Dock = DockStyle.Fill;
-            panel1.Controls.Add(dt);
+            hoadon hd = new hoadon();
+            hd.Dock = DockStyle.Fill;
+            panel1.Controls.Add(hd);
 
-            SaveOriginalBounds(dt);
+            SaveOriginalBounds(hd);
+        }
+
+        private void thucdon_btn_MouseClick(object sender, MouseEventArgs e)
+        {
+            panel1.Controls.Clear();
+            thucdon td = new thucdon();
+            td.Dock = DockStyle.Fill;
+            panel1.Controls.Add(td);
+
+            SaveOriginalBounds(td);
         }
 
         private void thoatra_btn_MouseClick(object sender, MouseEventArgs e)
