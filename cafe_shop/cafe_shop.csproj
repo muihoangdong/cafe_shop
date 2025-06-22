@@ -102,6 +102,9 @@
     <Compile Include="TrangChu\trangchu.Designer.cs">
       <DependentUpon>trangchu.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="HoaDon\hoadon.resx">
+      <DependentUpon>hoadon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KhoHang\khohang.resx">
       <DependentUpon>khohang.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +133,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ThucDon\thucdon.resx">
+      <DependentUpon>thucdon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TrangChu\trangchu.resx">
       <DependentUpon>trangchu.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +180,8 @@
   <ItemGroup>
     <None Include="Resources\saudi-league-al-shabab.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\premium_photo-1664970900025-1e3099ca757a1.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

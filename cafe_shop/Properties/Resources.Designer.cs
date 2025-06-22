@@ -123,6 +123,16 @@ namespace cafe_shop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap premium_photo_1664970900025_1e3099ca757a1 {
+            get {
+                object obj = ResourceManager.GetObject("premium_photo-1664970900025-1e3099ca757a1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ptr_login {
             get {
                 object obj = ResourceManager.GetObject("ptr_login", resourceCulture);
