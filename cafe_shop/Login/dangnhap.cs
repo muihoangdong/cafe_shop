@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -52,12 +53,50 @@ namespace cafe_shop
             this.Show();
         }
 
+        private void XuLyDangNhap()
+        {
+            string maNV = textBox1.Text.Trim();
+            string matKhau = textBox2.Text.Trim();
+
+            if (string.IsNullOrEmpty(maNV) || string.IsNullOrEmpty(matKhau))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            using (SqlConnection conn = SqlHelper.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM NhanVien WHERE MaNV = @maNV AND MatKhau = @matKhau";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@maNV", maNV);
+                    cmd.Parameters.AddWithValue("@matKhau", matKhau);
+
+                    int count = (int)cmd.ExecuteScalar();
+                    if (count > 0)
+                    {
+                        this.Hide();
+                        trangchu tc = new trangchu();
+                        tc.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sai mã nhân viên hoặc mật khẩu!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
+            }
+        }
+
         private void dangnhap_btn_MouseClick(object sender, MouseEventArgs e)
         {
-            trangchu tc = new trangchu();
-            this.Hide();
-            tc.ShowDialog();
-            this.Close();
+            XuLyDangNhap();
         }
 
         private void quenmatkhau_btn_MouseClick(object sender, MouseEventArgs e)
@@ -81,6 +120,11 @@ namespace cafe_shop
             {
                 Application.Exit();
             }
+        }
+
+        private void dangnhap_btn_Enter(object sender, EventArgs e)
+        {
+            XuLyDangNhap();
         }
     }
 }

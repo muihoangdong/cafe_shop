@@ -26,7 +26,7 @@ namespace cafe_shop.TrangChu
         {
             InitializeComponent();
             this.Load += Form1_Load;
-            this.Resize += Form1_Resize;
+            this.Resize += trangchu_Resize;
             this.AutoScaleMode = AutoScaleMode.Font;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
         }
@@ -61,15 +61,6 @@ namespace cafe_shop.TrangChu
         }
 
 
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            float xRatio = (float)this.Width / originalFormSize.Width;
-            float yRatio = (float)this.Height / originalFormSize.Height;
-
-            ResizeControls(this, xRatio, yRatio);
-            ResizeControls(panel1, xRatio, yRatio); // 👈 cần thiết
-        }
-
         private void ResizeControls(Control parent, float xRatio, float yRatio)
         {
             foreach (Control c in parent.Controls)
@@ -90,7 +81,7 @@ namespace cafe_shop.TrangChu
                     }
                 }
 
-                // 🔁 Gọi đệ quy cho control con
+                // Gọi đệ quy cho control con
                 if (c.HasChildren)
                 {
                     ResizeControls(c, xRatio, yRatio);
@@ -172,19 +163,32 @@ namespace cafe_shop.TrangChu
             SaveOriginalBounds(td);
         }
 
-        private void thoatra_btn_MouseClick(object sender, MouseEventArgs e)
+        private void khohang_btn_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-        "Bạn có chắc chắn muốn thoát không?",
-        "Thông báo",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Question
-    );
+            panel1.Controls.Clear();
+            khohang kh = new khohang();
+            kh.Dock = DockStyle.Fill;
+            panel1.Controls.Add(kh);
+
+            SaveOriginalBounds(kh);
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thoát không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
                 Application.Exit();
             }
+        }
+
+        private void trangchu_Resize(object sender, EventArgs e)
+        {
+            float xRatio = (float)this.Width / originalFormSize.Width;
+            float yRatio = (float)this.Height / originalFormSize.Height;
+
+            ResizeControls(this, xRatio, yRatio);
         }
     }
 }

@@ -17,9 +17,28 @@ namespace cafe_shop.KhoHang
             InitializeComponent();
         }
 
-        private void label7_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
+            panel2.Controls.Clear();
+            NhapKho nhapKhoControl = new NhapKho();
+            nhapKhoControl.Dock = DockStyle.Fill;
+            panel2.Controls.Add(nhapKhoControl);
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panel2.Controls.Clear();
+            NhapKhoNguyenLieu nhapKhoControl = new NhapKhoNguyenLieu();
+            nhapKhoControl.Dock = DockStyle.Fill;
+            panel2.Controls.Add(nhapKhoControl);
+        }
+
+        private void khohang_Load(object sender, EventArgs e)
+        {
+            panel2.Controls.Clear();
+            NhapKho nhapKhoControl = new NhapKho();
+            nhapKhoControl.Dock = DockStyle.Fill;
+            panel2.Controls.Add(nhapKhoControl);
         }
     }
 }

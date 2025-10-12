@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -58,6 +73,18 @@
     <Compile Include="KhoHang\khohang.Designer.cs">
       <DependentUpon>khohang.cs</DependentUpon>
     </Compile>
+    <Compile Include="KhoHang\NhapKho.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KhoHang\NhapKho.Designer.cs">
+      <DependentUpon>NhapKho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KhoHang\NhapKhoNguyenLieu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KhoHang\NhapKhoNguyenLieu.Designer.cs">
+      <DependentUpon>NhapKhoNguyenLieu.cs</DependentUpon>
+    </Compile>
     <Compile Include="LichTrinh\lichtrinh.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,6 +117,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlHelper.cs" />
     <Compile Include="ThucDon\thucdon.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -107,6 +135,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KhoHang\khohang.resx">
       <DependentUpon>khohang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KhoHang\NhapKho.resx">
+      <DependentUpon>NhapKho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KhoHang\NhapKhoNguyenLieu.resx">
+      <DependentUpon>NhapKhoNguyenLieu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LichTrinh\lichtrinh.resx">
       <DependentUpon>lichtrinh.cs</DependentUpon>
@@ -182,6 +216,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\premium_photo-1664970900025-1e3099ca757a1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z6705584981301_27c03048f881b2f910fe172c464780ca.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\door.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\power.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\turn-off.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

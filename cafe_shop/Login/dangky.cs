@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace cafe_shop.Login
 {
@@ -56,55 +59,66 @@ namespace cafe_shop.Login
             }
         }
 
-
-        private void dangky_Load(object sender, EventArgs e)
+        public bool CheckMaNV(string AC) // check maatj khaaur vaf taif khaorn
         {
-            //combobox chọn năm sinh
-            comboBox1.Items.Add("Chọn năm sinh"); // Dòng placeholder
-
-            for (int year = 1950; year <= DateTime.Now.Year; year++)
-            {
-                comboBox1.Items.Add(year.ToString());
-            }
-
-            comboBox1.SelectedIndex = 0; // Hiển thị mặc định là dòng đầu
-
-            //combobox chọn chức vụ
-            comboBox2.Items.Add("Chọn chức vụ"); // Placeholder
-            comboBox2.Items.Add("Quản lý");
-            comboBox2.Items.Add("Nhân viên");
-            comboBox2.Items.Add("Thu ngân");
-            comboBox2.Items.Add("Pha chế");
-
-            comboBox2.SelectedIndex = 0; // Mặc định hiển thị "Chọn chức vụ"
+            return Regex.IsMatch(AC, "^[0-9]{3}$");
+        }
+        public bool CheckEmail(string EM)
+        {
+            return Regex.IsMatch(EM, @"^[a-zA-Z0-9._]{3,20}@gmail.com(.vn|)$");
         }
 
         private void button1_MouseClick(object sender, MouseEventArgs e)
         {
             string email = textBox1.Text.Trim();
             string tenNV = textBox2.Text.Trim();
-            string tenDN = textBox3.Text.Trim();
-            string namSinh = comboBox1.SelectedItem?.ToString() ?? "";
-            string chucVu = comboBox2.SelectedItem?.ToString() ?? "";
+            string maNV = textBox3.Text.Trim();
+            DateTime ngaySinh = dateTimePicker1.Value;
 
-            // Kiểm tra dữ liệu chưa nhập hoặc chọn
-            if (email == "Nhập email đăng ký" || string.IsNullOrWhiteSpace(email) ||
-                tenNV == "Nhập tên nhân viên" || string.IsNullOrWhiteSpace(tenNV) ||
-                tenDN == "Nhập mã nhân viên" || string.IsNullOrWhiteSpace(tenDN) ||
-                comboBox1.SelectedIndex == 0 || comboBox2.SelectedIndex == 0)
+            if (!CheckMaNV(maNV)) { MessageBox.Show("Vui lòng nhập mã nhân viên 3 ký tự"); return; }
+            if (!CheckEmail(email)) { MessageBox.Show("Vui lòng nhập đúng định dạng email"); return; }
+
+            int gioiTinh = radioButton1.Checked ? 1 : 0;
+
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(tenNV) || string.IsNullOrWhiteSpace(maNV) || (!radioButton1.Checked && !radioButton2.Checked))
             {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin!");
                 return;
             }
-            DialogResult result = MessageBox.Show("Đăng ký thành công. Nhấn OK để đăng nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            if (result == DialogResult.OK)
+            using (SqlConnection conn = SqlHelper.GetConnection())
             {
-                // Mở form đăng nhập (ví dụ: Form 'dangnhap')
-                this.Hide();
-                dangnhap dn = new dangnhap();
-                this.Close();
+                try
+                {
+                    conn.Open();
+                    string query = "INSERT INTO NhanVien (MaNV, TenNV, Email, MatKhau, NamSinh, GioiTinh) " +
+                                   "VALUES (@ma, @ten, @email, @matkhau, @ngay, @gioiTinh)";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@ma", maNV);
+                    cmd.Parameters.AddWithValue("@ten", tenNV);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@matkhau", "12345");
+                    cmd.Parameters.AddWithValue("@ngay", ngaySinh);
+                    cmd.Parameters.AddWithValue("@gioiTinh", gioiTinh);
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Đăng ký thành công! Mật khẩu mặc định là: 12345");
+
+                    this.Hide();
+                    new dangnhap().ShowDialog();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
             }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
